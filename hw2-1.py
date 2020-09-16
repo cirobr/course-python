@@ -62,7 +62,6 @@ for i in range(3):
     random_place(board, 1)
     random_place(board, 2)
 
-
 # 6
 def row_win(board, player):
     axis = 1
@@ -85,12 +84,37 @@ def col_win(board, player):
 
 print(row_win(board, 1))
 
+# 8
+      
+board[1,1] = 2
+print(board)
+
 def diag_win(board, player):
+    n = len(board)
     x = np.equal(board, player)
-    y = [x[i,i] == True for i in x]   # tá errado
     
+    y1 = [x[i,i] for i in range(n)]
+    y1 = ((sum(y1) == 3))
+    
+    y2 = [x[i,n-i-1] for i in range(n)]
+    y2 = ((sum(y2) == 3))
+    
+    y = y1 | y2
     return(y)
 
-y = diag_win(board, 1)
+print(diag_win(board, 2))
 
-print()
+#9
+def evaluate(board):
+    winner = 0
+    for player in [1, 2]:
+        # add your code here!
+        win = row_win(board, player) | col_win(board, player) | diag_win(board, player)
+        if win:
+            winner = player
+        pass
+    if np.all(board != 0) and winner == 0:
+        winner = -1
+    return winner
+
+print("Winner is player: ", evaluate(board), "\n")
