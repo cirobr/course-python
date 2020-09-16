@@ -52,4 +52,45 @@ def random_place(board, player):
     place(board, player, pos)
     return(pos)
 
-random_place(board, 2)
+print("Q4: ", random_place(board, 2), "\n")
+
+#5
+random.seed(1)
+board = create_board()
+
+for i in range(3):
+    random_place(board, 1)
+    random_place(board, 2)
+
+
+# 6
+def row_win(board, player):
+    axis = 1
+    x = np.equal(board, player)
+    x = np.mean(x, axis = axis)   # axis = 1 >>> rows
+    y = [i == 1 for i in x]
+    y = sum(y) > 0
+    return(y)
+
+print(row_win(board, 1))
+
+# 7
+def col_win(board, player):
+    axis = 0
+    x = np.equal(board, player)
+    x = np.mean(x, axis = axis)   # axis = 0 >>> columns
+    y = [i == 1 for i in x]
+    y = sum(y) > 0
+    return(y)
+
+print(row_win(board, 1))
+
+def diag_win(board, player):
+    x = np.equal(board, player)
+    y = [x[i,i] == True for i in x]   # tá errado
+    
+    return(y)
+
+y = diag_win(board, 1)
+
+print()
