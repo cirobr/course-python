@@ -22,10 +22,10 @@ def encoding(x_char, encode_key):
     return y_char
 
 message = "hi my name is caesar"
-encoded_message = [encoding(char, 3) for char in message]
+encoded_message = [encoding(char, 1) for char in message]
 msg = "".join(encoded_message)
 print(msg)
 
-decoded_message = [encoding(char, 24) for char in encoded_message]
+decoded_message = [encoding(char, -2) for char in encoded_message]
 msg = "".join(decoded_message)
 print(msg)
