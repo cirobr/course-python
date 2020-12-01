@@ -27,3 +27,23 @@ counted_text = count_words_fast(text)
 print(counted_text["hamlet"])
 
 data = pd.DataFrame(data=list(counted_text.items()), columns=["word", "count"])
+data.insert(loc=2, column="lenght", value=0)
+data.insert(loc=3, column="frequency", value="")
+
+def lf(w, c):
+    l = len(w)
+    
+    if c > 10:
+        f = "frequent"
+    elif c == 1:
+        f = "unique"
+    else:
+        f = "infrequent"
+    
+    return l, f
+
+for ind in data.index:
+    d = lf(data["word"][ind], data["count"][ind])
+    data["lenght"][ind] = d[0]
+    data["frequency"][ind] = d[1]
+print(data.head())
