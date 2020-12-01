@@ -26,4 +26,4 @@ language, text = hamlets.iloc[0]
 counted_text = count_words_fast(text)
 print(counted_text["hamlet"])
 
-data = pd.DataFrame(data=counted_text)
+data = pd.DataFrame(data=list(counted_text.items()), columns=["word", "count"])
