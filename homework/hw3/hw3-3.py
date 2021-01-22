@@ -87,13 +87,13 @@ def accuracy(predictions, outcomes):
     acc = np.mean(predictions == outcomes)
     return acc
 
-print(accuracy(x, y) * 100, "\n")
+print("{:.2f}".format(accuracy(x, y) * 100), "\n")
 
 
 # e6
 x = df["high_quality"]
 y = np.zeros(x.shape)
-print(accuracy(x, y) * 100, "\n")
+print("{:.2f}".format(accuracy(x, y) * 100), "\n")
 
 
 # e7
@@ -102,7 +102,11 @@ knn = KNeighborsClassifier(n_neighbors = 5)
 knn.fit(numeric_data, df["high_quality"])
 
 library_predictions = knn.predict(numeric_data)
-print(accuracy(x, library_predictions) * 100, "\n")
+print("{:.2f}".format(accuracy(x, library_predictions) * 100), "\n")
 
 
 # e8
+n_rows = df.shape[0]
+random.seed(123)
+selection = random.sample(range(n_rows), 10)
+print(selection[9], "\n")
