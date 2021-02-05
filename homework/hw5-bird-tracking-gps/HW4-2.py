@@ -13,7 +13,22 @@ print(mean_speeds)
 print(mean_altitudes)
 
 # q2
+# Convert birddata.date_time to the `pd.datetime` format.
 import datetime
-birddata.date_time = [datetime.datetime.strptime(d[:-3], "%Y-%m-%d %H:%M:%S") \
-             for d in birddata.date_time]
-#birddata["date"] = pd.Series(timestamps, index=birddata.index)
+birddata.date_time = [datetime.datetime.strptime(d[:-3], "%Y-%m-%d %H:%M:%S") for d in birddata.date_time]
+
+# Create a new column of day of observation
+birddata["date"] = pd.Series([birddata.date_time[i].date() for i in birddata.index], index=birddata.index)
+
+# Use `groupby()` to group the data by date.
+grouped_bydates = birddata.groupby("date")
+
+# Find the mean `altitude` for each date.
+mean_altitudes_perday = grouped_bydates["altitude"].mean()
+
+# q3
+# Use `groupby()` to group the data by bird and date.
+grouped_birdday = 
+
+# Find the mean `altitude` for each bird and date.
+mean_altitudes_perday = 
