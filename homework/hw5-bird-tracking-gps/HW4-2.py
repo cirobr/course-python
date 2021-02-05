@@ -25,10 +25,29 @@ grouped_bydates = birddata.groupby("date")
 
 # Find the mean `altitude` for each date.
 mean_altitudes_perday = grouped_bydates["altitude"].mean()
+print(mean_altitudes_perday)
+print(mean_altitudes_perday[datetime.date(2013, 9, 12)])
 
 # q3
 # Use `groupby()` to group the data by bird and date.
-grouped_birdday = 
+grouped_birdday = birddata.groupby(["bird_name", "date"])
 
 # Find the mean `altitude` for each bird and date.
-mean_altitudes_perday = 
+mean_altitudes_perday = grouped_birdday["altitude"].mean()
+print(mean_altitudes_perday)
+print(mean_altitudes_perday.Eric[datetime.date(2013, 8, 18)])
+
+# q4
+import matplotlib.pyplot as plt
+eric_daily_speed  = grouped_birdday["speed_2d"].mean().Eric
+sanne_daily_speed = grouped_birdday["speed_2d"].mean().Sanne
+nico_daily_speed  = grouped_birdday["speed_2d"].mean().Nico
+
+eric_daily_speed.plot(label="Eric")
+sanne_daily_speed.plot(label="Sanne")
+nico_daily_speed.plot(label="Nico")
+plt.legend(loc="upper left")
+plt.show()
+
+print(nico_daily_speed[datetime.date(2014, 4, 4)])
+
