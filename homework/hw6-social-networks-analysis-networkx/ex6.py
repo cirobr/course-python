@@ -17,16 +17,15 @@ print(np.shape(G1.edges())[0] > np.shape(G2.edges())[0])
 
 
 ### connected components
-gen = connected_components_subgraphs(G1)
-g = gen.__next__()                                   # iterable
+gen1 = (G1.subgraph(c) for c in nx.connected_components(G1))
 print(len(G1), len(G1) == G1.number_of_nodes())
-print(len(g))
+gen2 = (G2.subgraph(c) for c in nx.connected_components(G2))
 
 # largest connected component
-G1_LCC = max(nx.connected_components(G1), key=len)
-G1_LCC = nx.Graph(G1_LCC)
-G2_LCC = max(nx.connected_components(G2), key=len)
-print(len(G1_LCC), len(G2_LCC))
+G1_LCC = max(gen1, key=len)
+print(len(G1_LCC))
+G2_LCC = max(gen2, key=len)
 
-plt.figure()
-nx.draw(G1_LCC, node_color="red", edge_color="gray", node_size=20)
+f, axes = plt.subplots(2,1, figsize=(20, 20))
+nx.draw(G1_LCC, node_color="red", edge_color="gray", node_size=20, ax=axes[0])
+nx.draw(G2_LCC, node_color="green", edge_color="gray", node_size=20, ax=axes[1])
