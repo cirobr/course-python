@@ -22,3 +22,18 @@ favorite_colors = {
 
 mp = marginal_prob(favorite_colors)
 print(mp)
+
+def chance_homophily(chars):
+    cv = Counter(chars.values())
+    d = list()
+    for i in cv:
+        p = (1/2) ** cv[i]
+        print(i, cv[i], p)
+        d.append((i, p))
+    
+    d = dict(d)
+    return d
+
+color_homophily = chance_homophily(favorite_colors)
+print(color_homophily)
+        

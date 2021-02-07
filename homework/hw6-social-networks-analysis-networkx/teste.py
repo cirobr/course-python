@@ -10,3 +10,5 @@ chars = {
 c = Counter(chars)
 cv = Counter(c.values())
 t = np.sum([v for v in cv.values()])
+
+cv
