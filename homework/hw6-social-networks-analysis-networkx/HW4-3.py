@@ -80,10 +80,39 @@ def homophily(G, chars, IDs):
     for n1, n2 in G.edges():
         if IDs[n1] in chars and IDs[n2] in chars:
             if G.has_edge(n1, n2):
-                # Should `num_ties` be incremented?  What about `num_same_ties`?
                 num_ties += 1
                 if chars[IDs[n1]] == chars[IDs[n2]]:
-                    # Should `num_ties` be incremented?  What about `num_same_ties`?
                     num_same_ties += 1
     return (num_same_ties / num_ties)
 
+# q6
+#data_filepath1 = "https://courses.edx.org/asset-v1:HarvardX+PH526x+2T2019+type@asset+block@key_vilno_1.csv"
+#data_filepath2 = "https://courses.edx.org/asset-v1:HarvardX+PH526x+2T2019+type@asset+block@key_vilno_2.csv"
+data_filepath1 = "./data/key_vilno_1.csv"
+data_filepath2 = "./data/key_vilno_2.csv"
+
+pid1 = pd.read_csv(data_filepath1, low_memory=False, index_col=0)
+pid2 = pd.read_csv(data_filepath2, low_memory=False, index_col=0)
+
+print(pid1.loc[100,"0"])
+
+# q7
+import networkx as nx
+#A1 = np.array(pd.read_csv("https://courses.edx.org/asset-v1:HarvardX+PH526x+2T2019+type@asset+block@adj_allVillageRelationships_vilno1.csv", index_col=0))
+#A2 = np.array(pd.read_csv("https://courses.edx.org/asset-v1:HarvardX+PH526x+2T2019+type@asset+block@adj_allVillageRelationships_vilno2.csv", index_col=0))
+A1 = np.array(pd.read_csv("./data/adj_allVillageRelationships_vilno1.csv", index_col=0))
+A2 = np.array(pd.read_csv("./data/adj_allVillageRelationships_vilno2.csv", index_col=0))
+
+G1 = nx.to_networkx_graph(A1)
+G2 = nx.to_networkx_graph(A2)
+
+pid1 = pd.read_csv(data_filepath1, dtype=int)['0'].to_dict()
+pid2 = pd.read_csv(data_filepath2, dtype=int)['0'].to_dict()
+
+print("sex1:", homophily(G1, sex1, pid1))
+print("caste1:", homophily(G1, caste1, pid1))
+print("religion1:", homophily(G1, religion1, pid1))
+
+print("sex2:", homophily(G2, sex2, pid2))
+print("caste2:", homophily(G2, caste2, pid2))
+print("religion2:", homophily(G2, religion2, pid2))
