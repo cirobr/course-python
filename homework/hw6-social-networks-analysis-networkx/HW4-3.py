@@ -1,3 +1,4 @@
+# q1
 from collections import Counter
 import numpy as np
 
@@ -14,26 +15,57 @@ def marginal_prob(chars):
     d = dict(d)
     return d
 
+def chance_homophily(chars):
+    mp = marginal_prob(chars)
+    #print(mp)
+    chance = np.sum([v ** 2 for v in mp.values()])
+
+    return chance
+
 favorite_colors = {
     "ankit":  "red",
     "xiaoyu": "blue",
     "mary":   "blue"
 }
 
-mp = marginal_prob(favorite_colors)
-print(mp)
-
-def chance_homophily(chars):
-    cv = Counter(chars.values())
-    d = list()
-    for i in cv:
-        p = (1/2) ** cv[i]
-        print(i, cv[i], p)
-        d.append((i, p))
-    
-    d = dict(d)
-    return d
-
 color_homophily = chance_homophily(favorite_colors)
 print(color_homophily)
-        
+
+# q2
+import pandas as pd
+#df  = pd.read_csv("https://courses.edx.org/asset-v1:HarvardX+PH526x+2T2019+type@asset+block@individual_characteristics.csv", low_memory=False, index_col=0)
+df  = pd.read_csv("./data/asset-v1.csv", low_memory=False, index_col=0)
+
+df_filter = (df.village == 1)
+df1 = df[df_filter]
+df1 = df1.dropna(axis=1, how="any")
+
+df2 = df[df.village == 2]
+df2 = df2.dropna(axis=1, how="any")
+
+dfx = df1.head()
+dfx = dfx[dfx.resp_gend == 1]
+print(len(dfx))
+
+# q3
+sex1      = dict(zip(df1.pid, df1.resp_gend))
+caste1    = dict(zip(df1.pid, df1.caste))
+religion1 = dict(zip(df1.pid, df1.religion))
+
+sex2      = dict(zip(df2.pid, df2.resp_gend))
+caste2    = dict(zip(df2.pid, df2.caste))
+religion2 = dict(zip(df2.pid, df2.religion))
+
+print(caste2[202802])
+
+# q4
+chance_homophily(sex1)
+chances = [("sex1", chance_homophily(sex1)), ("caste1", chance_homophily(caste1)), \
+           ("religion1", chance_homophily(religion1)), ("sex2", chance_homophily(sex2)), \
+           ("caste2", chance_homophily(caste2)), ("religion2", chance_homophily(religion2))]
+chances = dict(chances)
+print(chances)
+max_key = max(chances, key=chances.get)
+print(max_key)
+
+# q5
