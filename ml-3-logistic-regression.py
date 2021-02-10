@@ -2,9 +2,8 @@
 import numpy as np
 import scipy.stats as ss
 import matplotlib.pyplot as plt
-#%matplotlib notebook
 
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
 # generate data
@@ -40,11 +39,10 @@ plot_data(x1, y1, x2, y2)
 
 
 ### logistic regression
-from sklearn.linear_model import LogisticRegression
 n = 1000
 
 # generate the data
-x1, y1, x2, y2 = gen_data(1000, 1.5, 1, 1.5)
+x1, y1, x2, y2 = gen_data(n, 1.5, 1, 1.5)
 
 # generate the model's object
 clf = LogisticRegression()
